@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium from 'radium';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor' )
+  }
     state = {
       persons: [
         {id:'asfsf', name: 'Maxx', age: 28},
@@ -13,6 +19,10 @@ class App extends Component {
       showPersons: false
     }
 
+    static getDerivedStateFromProps(props, state) {
+      console.log('[App,js] getDerivedStateFromProps', props)
+      return state
+    }
 
     switchNameHandler = (newName) => {
       console.log('was clicked');
@@ -58,12 +68,18 @@ class App extends Component {
     }
 
   render() {
+    console.log('[App.js] render')
     const style = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit', 
       border: '1px solid blue',
       padding: '8px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover':{
+        backgroundColor: 'lightgreen',
+        color: 'black'
+      },
     }
 
     let persons = null;
@@ -84,14 +100,23 @@ class App extends Component {
          }
         </div>
       );
+      style.backgroundColor = 'red'
+      style[':hover'] = {
+        backgroundColor: 'lightred',
+        color:'black'
+      }
       console.log(persons);
     }
 
+    let classes = ['red', 'bold'].join(' ');
+
       return (
+  
         <div className="App">
         <h1>Hello React</h1>
-        <p>this is working</p>
-        <button style ={style} onClick={this.togglePerson}>Switch Name</button>
+        <p className ={classes}>this is working</p>
+        <button style ={style} 
+        onClick={this.togglePerson}>Switch Name</button>
         { 
         this.state.showPersons===true ?
           <div>
@@ -111,4 +136,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);

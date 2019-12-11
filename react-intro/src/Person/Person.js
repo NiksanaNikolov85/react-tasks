@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './Person.css'
+import Radium from 'radium';
 
-const person = (props) => {
-    return (
-        <div className ='Person'>
-            <p onClick={props.click}>i'm {props.name} a Person and i am {props.age} years old! </p>
-    <p>{props.children}</p>
-    <input type='text' onChange ={props.changed}></input>
-        </div>
-    )
+class Person extends Component {
+    render () {
+        const rnd = Math.random();
+
+        return (        
+            <div className ='Person'>
+                <p onClick={this.props.click}>i'm {this.props.name} a Person and i am {this.props.age} years old! </p>
+        <p>{this.props.children}</p>
+        <input type='text' onChange ={this.props.changed}></input>
+            </div>
+        )
+
+    }
+
 };
 
-export default person;
+export default Radium(Person)
