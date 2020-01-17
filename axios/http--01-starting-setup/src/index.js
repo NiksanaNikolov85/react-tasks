@@ -8,7 +8,6 @@ import axios from 'axios'
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com/'
 
 axios.interceptors.request.use(request => {
-    console.log(request);
     return request
 }), error => {
     console.log(error);
